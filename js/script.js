@@ -23,29 +23,50 @@ function getNumRandom(min, max) {
 }
 
 // Mostro l'array dei numeri random in pagina
-const lista = document.getElementById("numbers-list");
-lista.innerText = getArrayNumber(1, 50, 5).join(", ");
+const listaRandom = document.getElementById("numbers-list");
+const numeriListaRandom = getArrayNumber(1, 50, 5);
+listaRandom.innerText = numeriListaRandom.join(", ");
 
 // Seleziono gli elementi del countdown
 let seconds = 10;
 let timer;
-const endTime = 0;
 const timeInPage = document.getElementById("countdown");
 const instructions = document.getElementById("instructions");
-const numbersList = document.getElementById("numbers-list");
 // Seleziono il form
-const answersForm = document.getElementById("answers-form");
+const form = document.getElementById("answers-form");
 
 // Timer di 10 secondi per poter memorizzare i numeri
 timer = setInterval(() => {
     timeInPage.innerText = --seconds;
 
     // Appena il countdown arriva a 0 nascondo gli elementi che ho in pagina e mostro il form
-    if (seconds === endTime) {
+    if (seconds === 0) {
         clearInterval(timer);
         timeInPage.classList.add("d-none");
         instructions.classList.add("d-none");
-        numbersList.classList.add("d-none");
-        answersForm.classList.remove("d-none");
+        listaRandom.classList.add("d-none");
+        form.classList.remove("d-none");
     }
 }, 100);
+
+// Creo un evento che al submit mi dice quanti numeri ha indovinato l'utente
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    let guessNumArray = [];
+    let allUserNum = document.querySelectorAll("#input-group input");
+    let messaggio = document.getElementById("message");
+
+
+    for (let i = 0; i < allUserNum.length; i++) {
+        let numUser = parseInt(allUserNum[i].value);
+
+        // Se il numUser è uguale a numRandom allora mi aggiunge non il valore ma un numero al
+
+        if (numeriListaRandom.includes(numUser) && !guessNumArray.includes(numUser)) {
+            guessNumArray.push(numUser);
+        }
+    }
+
+    messaggio.innerText = "Hai indovinato " + guessNumArray.length + " numeri!";
+});
