@@ -3,6 +3,7 @@
 // Funzione per creare un array con dei numeri random univoci
 function getArrayNumber(min, max, tot) {
 
+    // Creo un'array che conterrà i numeri random
     let arrayNumber = [];
 
     // Finchè la lunghezza di arrayNumber è minore di 5, continua a generare numeri random
@@ -22,20 +23,24 @@ function getNumRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Mostro l'array dei numeri random in pagina
+// Seleziono l'elemento dove mostro i numeri random
 const listaRandom = document.getElementById("numbers-list");
+// Genero 5 numeri random da 1 a 50
 const numeriListaRandom = getArrayNumber(1, 50, 5);
+// Mostro i numeri random in pagina separati da virgole
 listaRandom.innerText = numeriListaRandom.join(", ");
 
-// Seleziono gli elementi del countdown
+// Variabili per il timer
 let seconds = 10;
 let timer;
+// Seleziono l'elemento per mostrare il countdown
 const timeInPage = document.getElementById("countdown");
+// Seleziono testo istruzioni
 const instructions = document.getElementById("instructions");
 // Seleziono il form
 const form = document.getElementById("answers-form");
 
-// Timer di 10 secondi per poter memorizzare i numeri
+// Timer di 10 secondi che toglie un numero di secondi ogni secondo
 timer = setInterval(() => {
     timeInPage.innerText = --seconds;
 
@@ -47,24 +52,23 @@ timer = setInterval(() => {
         listaRandom.classList.add("d-none");
         form.classList.remove("d-none");
     }
-}, 100);
+}, 1000);
 
-// Creo un evento che al submit mi dice quanti numeri ha indovinato l'utente
+// Evento submit che verifica quanti numeri ha indovinato l'utente
 form.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    let guessNumArray = [];
-    let allUserNum = document.querySelectorAll("#input-group input");
+    let guessNumArray = []; // Array dei numeri indovinati
+    let allUserNum = document.querySelectorAll("#input-group input"); // Seleziona tutti gli <input> che sono dentro l'elemento con id "input-group"
     let messaggio = document.getElementById("message");
 
-
+    // Ciclo che scorre gli input dell'utente
     for (let i = 0; i < allUserNum.length; i++) {
-        let numUser = parseInt(allUserNum[i].value);
+        let numUser = parseInt(allUserNum[i].value); // Converto il valore in numero
 
-        // Se il numUser è uguale a numRandom allora mi aggiunge non il valore ma un numero al
-
+        // Se il numero utente è presente tra i numeri random e se quello indovinato non è già stato scritto dall'utente 
         if (numeriListaRandom.includes(numUser) && !guessNumArray.includes(numUser)) {
-            guessNumArray.push(numUser);
+            guessNumArray.push(numUser); // Aggiungi il numero all'array dei numeri indovinati
         }
     }
 
