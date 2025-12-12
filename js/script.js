@@ -59,12 +59,12 @@ form.addEventListener("submit", (event) => {
     event.preventDefault();
 
     let guessNumArray = []; // Array dei numeri indovinati
-    let allUserNum = document.querySelectorAll("#input-group input"); // Seleziona tutti gli <input> che sono dentro l'elemento con id "input-group"
+    let allUserNum = document.querySelectorAll("#input-group input"); // Seleziona tutti gli <input> che sono dentro l'elemento con id "input-group", quindi è la lista di tutti i numeri che scrive l'utente 
     let messaggio = document.getElementById("message");
 
     // Ciclo che scorre gli input dell'utente
     for (let i = 0; i < allUserNum.length; i++) {
-        let numUser = parseInt(allUserNum[i].value); // Converto il valore in numero
+        let numUser = parseInt(allUserNum[i].value); // Converto ogni singolo input in numero
 
         // Se il numero utente è presente tra i numeri random e se quello indovinato non è già stato scritto dall'utente 
         if (numeriListaRandom.includes(numUser) && !guessNumArray.includes(numUser)) {
