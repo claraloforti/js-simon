@@ -1,4 +1,26 @@
-// ESERCIZIO SIMON SAYS
+// ESERCIZIO SIMON SAYS 
+
+// SELEZIONO ELEMENTI CHE MI SERVIRANNO
+
+// Seleziono l'elemento dove mostro i numeri random
+const listaRandom = document.getElementById("numbers-list");
+// Genero 5 numeri random da 1 a 50
+const numeriListaRandom = getArrayNumber(1, 50, 5);
+// Mostro i numeri random in pagina separati da virgole
+listaRandom.innerText = numeriListaRandom.join(", ");
+
+// Variabili per il timer
+let seconds = 10;
+// Seleziono l'elemento per mostrare il countdown
+const timeInPage = document.getElementById("countdown");
+// Seleziono testo istruzioni
+const instructions = document.getElementById("instructions");
+// Seleziono il form
+const form = document.getElementById("answers-form");
+
+
+
+// FUNZIONI
 
 // Funzione per creare un array con dei numeri random univoci
 function getArrayNumber(min, max, tot) {
@@ -23,25 +45,8 @@ function getNumRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Seleziono l'elemento dove mostro i numeri random
-const listaRandom = document.getElementById("numbers-list");
-// Genero 5 numeri random da 1 a 50
-const numeriListaRandom = getArrayNumber(1, 50, 5);
-// Mostro i numeri random in pagina separati da virgole
-listaRandom.innerText = numeriListaRandom.join(", ");
-
-// Variabili per il timer
-let seconds = 10;
-let timer;
-// Seleziono l'elemento per mostrare il countdown
-const timeInPage = document.getElementById("countdown");
-// Seleziono testo istruzioni
-const instructions = document.getElementById("instructions");
-// Seleziono il form
-const form = document.getElementById("answers-form");
-
 // Timer di 10 secondi che toglie un numero di secondi ogni secondo
-timer = setInterval(() => {
+let timer = setInterval(() => {
     timeInPage.innerText = --seconds;
 
     // Appena il countdown arriva a 0 nascondo gli elementi che ho in pagina e mostro il form
